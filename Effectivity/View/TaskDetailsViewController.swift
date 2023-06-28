@@ -55,6 +55,7 @@ class TaskDetailsViewController: UIViewController {
     }
     
     @objc func trashTapped () {
-        print("Asdasdsa")
+        guard let navigationController else { return }
+        viewModel?.deleteTask(navigationController: navigationController)
     }
 }

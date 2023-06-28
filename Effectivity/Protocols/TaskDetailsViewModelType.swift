@@ -5,9 +5,9 @@
 //  Created by Владимир on 25.06.2023.
 //
 
-import Foundation
+import UIKit
 
 protocol TaskDetailsViewModelType {
     var task: Task { get set }
-    func deleteTask ()
+    func deleteTask (navigationController: UINavigationController)
 }

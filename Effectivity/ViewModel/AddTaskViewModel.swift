@@ -61,12 +61,10 @@ class AddTaskViewModel: AddTaskViewModelType {
     func saveTask(navigationController: UINavigationController) {
         let tasks = TaskService.shared.tasks
         guard let date = date.value else { return }
-//        let task = PersistedTask(title: titleField.value, text: textField.value, priority: PersistablePriority(rawValue: priority.value)!, deadline: date)
-        let task = Task(title: titleField.value, text: textField.value, priority: returnPriority(index: priority.valueц), deadline: date)
-        tasks.accept(tasks.value + [task])
-//        try! realm.write {
-//            realm.add(task)
-//        }
+        let task = Task(title: titleField.value, text: textField.value, priority: Priority(rawValue: priority.value)!, deadline: date)
+        try! realm.write {
+            realm.add(task)
+        }
         navigationController.popViewController(animated: true)
     }
 }

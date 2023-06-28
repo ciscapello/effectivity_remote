@@ -11,6 +11,8 @@ target 'Effectivity' do
     pod 'RxCocoa', '6.5.0'
     pod 'RxRelay', '6.5.0'
     pod 'RealmSwift', '~> 10.41.0'
+    pod "RxRealm"
+
 
 
 
