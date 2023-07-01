@@ -19,6 +19,21 @@ class MainViewController: UIViewController {
     let disposeBag = DisposeBag()
     
     private let viewModel = MainViewModel()
+    
+    var menuItems: [UIAction] {
+        return [
+            UIAction(title: "Сначала новые", handler: { (_) in
+            }),
+            UIAction(title: "Сначала старые", handler: { (_) in
+            }),
+            UIAction(title: "Сначала срочные", handler: { (_) in
+            }),
+        ]
+    }
+    
+    var showMenu: UIMenu {
+        return UIMenu(title: "Сортировать", image: nil, identifier: nil, options: [], children: menuItems)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,21 +41,8 @@ class MainViewController: UIViewController {
         title = "Список задач"
         tableView.backgroundColor = UIColor(red: 255/255, green: 250/255, blue: 215/255, alpha: 1.0)
         setupTableView()
+        setupMenu()
         tableView.rx.setDelegate(self).disposed(by: disposeBag)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Добавить", style: .plain, target: self, action: #selector(navBarButtonTapped(sender:)))
-        let realm = try! Realm()
-        let dog = Dog()
-        dog.name = "Шабакус"
-        dog.age = 10
-        try! realm.write {
-            realm.add(dog)
-        }
-        print(Realm.Configuration.defaultConfiguration.fileURL!)
-        let dogs = realm.objects(Dog.self)
-        let puppies = dogs.where {
-            $0.age < 6
-        }
-        print(puppies)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,10 +60,28 @@ class MainViewController: UIViewController {
         }.disposed(by: disposeBag)
     }
     
+    func setupMenu() {
+        let addButton = UIBarButtonItem(image: UIImage(systemName: "plus"), style: .plain, target: self, action: #selector(navBarButtonTapped(sender:)))
+        navigationItem.rightBarButtonItems = [addButton]
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "", image: UIImage(systemName: "list.bullet.indent"), primaryAction: nil, menu: showMenu)
+        
+
+    }
+
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        // Takes care of toggling the button's title.
+        super.setEditing(editing, animated: true)
+
+        // Toggle table view editing.
+        tableView.setEditing(editing, animated: true)
+    }
+    
     @objc func navBarButtonTapped (sender: UIBarButtonItem) {
         guard let navigationController else { return }
         viewModel.navigateToAddTask(navigationController: navigationController)
     }
+    
 }
 
 extension MainViewController: UITableViewDelegate {

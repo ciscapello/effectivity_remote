@@ -15,6 +15,8 @@ extension Date {
             return "Сегодня"
         } else if Calendar.current.isDateInTomorrow(self) {
             return "Завтра"
+        } else if Calendar.current.isDateInYesterday(self) {
+            return "Вчера"
         }
         return formatter.string(from: self)
     }

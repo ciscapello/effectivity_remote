@@ -11,6 +11,7 @@ import RxSwift
 import RxRelay
 import RealmSwift
 import RxRealm
+//import Realm
 
 class MainViewModel: MainViewModelType {
     
@@ -21,16 +22,9 @@ class MainViewModel: MainViewModelType {
     
     init () {
         let tasks = realm.objects(Task.self)
-        
-        self.tasks.accept(Array(tasks))
-//        self.tasks = Observable.from(tasks)
         Observable.arrayWithChangeset(from: tasks).subscribe { array, changeset in
             self.tasks.accept(array)
-//            print(changeset?.inserted)
         }.disposed(by: disposeBag)
-        
-        print(tasks)
-//        self.tasks = Array(tasks)
     }
 
     func navigateToAddTask(navigationController: UINavigationController) {

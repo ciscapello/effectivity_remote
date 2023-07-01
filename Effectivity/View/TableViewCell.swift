@@ -41,6 +41,7 @@ class TableViewCell: UITableViewCell {
         didSet {
             self.title.text = viewModel?.task?.title
             self.text.text = viewModel?.task?.text
+            print(viewModel?.task?.title, viewModel?.task?.priority)
             self.priorityCircle.backgroundColor = viewModel?.task?.priorityColor()
             self.date.text = viewModel?.task?.deadline.format()
         }

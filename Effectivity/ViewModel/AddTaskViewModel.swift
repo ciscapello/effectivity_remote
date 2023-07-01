@@ -23,25 +23,7 @@ class AddTaskViewModel: AddTaskViewModelType {
     
     let disposeBag = DisposeBag()
     let realm = try! Realm()
-    
-    init() {
-        titleField.subscribe { string in
-            if let elem = string.element {
-                print(elem)
-            }
-        }.disposed(by: disposeBag)
-        textField.subscribe { string in
-            if let elem = string.element {
-                print(elem)
-            }
-        }.disposed(by: disposeBag)
-        priority.subscribe { int in
-            if let elem = int.element {
-                print(self.controlItems[elem])
-            }
-        }.disposed(by: disposeBag)
-    }
-    
+        
     func returnPriority (index: Int) -> Priority {
         switch index {
         case 0: return Priority.nonUrgently
@@ -59,8 +41,8 @@ class AddTaskViewModel: AddTaskViewModelType {
     }
     
     func saveTask(navigationController: UINavigationController) {
-        let tasks = TaskService.shared.tasks
         guard let date = date.value else { return }
+        print(priority.value)
         let task = Task(title: titleField.value, text: textField.value, priority: Priority(rawValue: priority.value)!, deadline: date)
         try! realm.write {
             realm.add(task)

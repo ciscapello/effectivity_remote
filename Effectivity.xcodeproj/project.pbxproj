@@ -27,6 +27,7 @@
 		E70B81472A48996E00645FCD /* UIViewContoller+keyboardTapOutside.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B81462A48996E00645FCD /* UIViewContoller+keyboardTapOutside.swift */; };
 		E70B814A2A495CA300645FCD /* TaskService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B81492A495CA300645FCD /* TaskService.swift */; };
 		E70B814C2A49658500645FCD /* Date+Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70B814B2A49658500645FCD /* Date+Formatter.swift */; };
+		E72026D62A500F700094CAE3 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72026D52A500F700094CAE3 /* Comment.swift */; };
 		E76CCBE32A473276004D9472 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E76CCBE22A473276004D9472 /* MainViewModel.swift */; };
 		E772FC1C2A456F7900130B96 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E772FC1B2A456F7900130B96 /* AppDelegate.swift */; };
 		E772FC1E2A456F7900130B96 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E772FC1D2A456F7900130B96 /* SceneDelegate.swift */; };
@@ -81,6 +82,7 @@
 		E70B81462A48996E00645FCD /* UIViewContoller+keyboardTapOutside.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewContoller+keyboardTapOutside.swift"; sourceTree = "<group>"; };
 		E70B81492A495CA300645FCD /* TaskService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskService.swift; sourceTree = "<group>"; };
 		E70B814B2A49658500645FCD /* Date+Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Formatter.swift"; sourceTree = "<group>"; };
+		E72026D52A500F700094CAE3 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		E76CCBE22A473276004D9472 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		E772FC182A456F7900130B96 /* Effectivity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Effectivity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E772FC1B2A456F7900130B96 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				E70B81292A47352400645FCD /* Task.swift */,
+				E72026D52A500F700094CAE3 /* Comment.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -539,6 +542,7 @@
 				E70B81252A47345A00645FCD /* TableViewCellViewModel.swift in Sources */,
 				E70B81452A488ABE00645FCD /* UITextField+paddings.swift in Sources */,
 				E70B81412A4884E700645FCD /* AddTaskViewModelType.swift in Sources */,
+				E72026D62A500F700094CAE3 /* Comment.swift in Sources */,
 				E70B81232A47344B00645FCD /* TableViewCell.swift in Sources */,
 				E772FC202A456F7900130B96 /* MainViewController.swift in Sources */,
 				E772FC1C2A456F7900130B96 /* AppDelegate.swift in Sources */,
