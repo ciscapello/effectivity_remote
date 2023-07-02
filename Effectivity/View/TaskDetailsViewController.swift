@@ -76,7 +76,7 @@ class TaskDetailsViewController: UIViewController {
     }()
     
     let commentsTitle: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.font = UIFont(name: Fonts.HelveticaNeueBold.rawValue, size: 16)
         label.text = "Комментарии"
         return label
@@ -91,7 +91,7 @@ class TaskDetailsViewController: UIViewController {
     }()
     
     let placeholderLabel: UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.text = "Комментарий"
         label.font = UIFont(name: Fonts.HelveticaNeue.rawValue, size: 16)
         label.sizeToFit()
@@ -100,7 +100,7 @@ class TaskDetailsViewController: UIViewController {
     }()
     
     let sendButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.setImage(UIImage(systemName: "paperplane"), for: .normal)
         button.tintColor = .white
         button.backgroundColor = UIColor(red: 0/255, green: 35/255, blue: 102/255, alpha: 1.0)
@@ -108,7 +108,7 @@ class TaskDetailsViewController: UIViewController {
         button.addTarget(nil, action: #selector(addComment), for: .touchUpInside)
         return button
     }()
-
+    
     
     
     override func viewDidLoad() {
@@ -180,7 +180,7 @@ class TaskDetailsViewController: UIViewController {
         viewModel?.comments.bind(to: commentsTableView.rx.items(cellIdentifier: "commentCell", cellType: UITableViewCell.self)) { index, elem, cell in
             var content = cell.defaultContentConfiguration()
             content.text = elem.text
-            content.secondaryText = elem.createdAt.format()
+            content.secondaryText = elem.createdAt.format(withTime: true)
             cell.contentConfiguration = content
             cell.backgroundColor = UIColor(red: 255/255, green: 250/255, blue: 215/255, alpha: 1.0)
         }.disposed(by: disposeBag)
@@ -201,7 +201,7 @@ class TaskDetailsViewController: UIViewController {
             make.left.equalToSuperview().offset(15)
         }
     }
-        
+    
     func setupTextView () {
         commentField.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(15)
@@ -252,11 +252,15 @@ class TaskDetailsViewController: UIViewController {
             self.sendButton.layoutIfNeeded()
         }
     }
-
+    
     @objc func addComment () {
         viewModel?.sendComment()
         commentField.text = ""
         placeholderLabel.isHidden = false
+    }
+    
+    @objc func deleteComment (id: String) {
+        viewModel?.deleteComment(id: id)
     }
     
     @objc func trashTapped () {
@@ -271,7 +275,25 @@ extension TaskDetailsViewController: UITableViewDelegate {
         return 60
     }
     
-
+    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        nil
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
+    {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { (action, view, handler) in
+            let id = self.viewModel?.comments.value.first(where: { comment in
+                comment.id == self.viewModel?.comments.value[indexPath.row].id
+            })?.id
+            if let id {
+                self.deleteComment(id: id)
+            }
+        }
+        deleteAction.backgroundColor = .red
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = false
+        return configuration
+    }
 }
 
 extension TaskDetailsViewController: UITextViewDelegate {

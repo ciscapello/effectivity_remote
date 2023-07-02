@@ -34,11 +34,11 @@ class TaskDetailsViewModel: TaskDetailsViewModelType {
             self.comments.accept(array.sorted(by: { first, second in
                 first.createdAt > second.createdAt
             }))
+            print(changeset?.deleted)
         }.disposed(by: disposeBag)
     }
     
     func deleteTask(navigationController: UINavigationController) {
-        print(task.id)
         try! realm.write {
             let object = realm.objects(Task.self).where { task in
                 task.id == self.task.id
@@ -56,5 +56,16 @@ class TaskDetailsViewModel: TaskDetailsViewModelType {
             task.comments.append(comment)
         }
         commentField.accept("")
+    }
+    
+    func deleteComment (id: String) {
+        let comment = realm.objects(Task.self).where { task in
+            task.id == self.task.id
+        }[0].comments.where { comment in
+            comment.id == id
+        }[0]
+        try! realm.write {
+            realm.delete(comment)
+        }
     }
 }

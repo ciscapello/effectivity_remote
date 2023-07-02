@@ -8,15 +8,20 @@
 import UIKit
 
 extension Date {
-    func format () -> String {
+    func format (withTime: Bool = false) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "d MMMM"
+        let timeformatter = DateFormatter()
+        timeformatter.dateFormat = "HH:mm"
         if Calendar.current.isDateInToday(self) {
-            return "Сегодня"
+            return "Сегодня \(withTime ? timeformatter.string(from: self) : "")"
         } else if Calendar.current.isDateInTomorrow(self) {
-            return "Завтра"
+            return "Завтра  \(withTime ? timeformatter.string(from: self) : "")"
         } else if Calendar.current.isDateInYesterday(self) {
-            return "Вчера"
+            return "Вчера  \(withTime ? timeformatter.string(from: self) : "" )"
+        }
+        if withTime {
+            return formatter.string(from: self) + ", " + timeformatter.string(from: self)
         }
         return formatter.string(from: self)
     }
