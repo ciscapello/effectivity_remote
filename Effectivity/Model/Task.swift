@@ -63,7 +63,8 @@ enum Priority: Int, PersistableEnum {
     case usually = 0
 }
 
-
-let mockTasks = [
-    Task(title: "Создать свою первую задачу", text: "Чтобы начать использовать приложение в полной мере необходимо создать первую задачу", priority: .urgently, deadline: Date()),
-]
+enum SortTasksBy {
+    case newDesc
+    case newAsc
+    case urgentlyDesc
+}

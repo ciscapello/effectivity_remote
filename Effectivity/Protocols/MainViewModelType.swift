@@ -11,6 +11,8 @@ import RxCocoa
 protocol MainViewModelType {
     var tasks: BehaviorRelay<[Task]> { get }
     
+    var sortTasksBy: BehaviorRelay<SortTasksBy> { get }
+    
     func navigateToAddTask(navigationController: UINavigationController)
     
     func navigateToTaskDetails(navigationController: UINavigationController, with index: IndexPath)

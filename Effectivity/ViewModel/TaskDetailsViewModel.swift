@@ -34,7 +34,6 @@ class TaskDetailsViewModel: TaskDetailsViewModelType {
             self.comments.accept(array.sorted(by: { first, second in
                 first.createdAt > second.createdAt
             }))
-            print(changeset?.deleted)
         }.disposed(by: disposeBag)
     }
     

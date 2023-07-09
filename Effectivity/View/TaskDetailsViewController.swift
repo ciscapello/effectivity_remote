@@ -109,8 +109,6 @@ class TaskDetailsViewController: UIViewController {
         return button
     }()
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(red: 255/255, green: 250/255, blue: 215/255, alpha: 1.0)
@@ -184,6 +182,17 @@ class TaskDetailsViewController: UIViewController {
             cell.contentConfiguration = content
             cell.backgroundColor = UIColor(red: 255/255, green: 250/255, blue: 215/255, alpha: 1.0)
         }.disposed(by: disposeBag)
+        
+        commentsTableView.rx.itemDeleted
+            .subscribe(onNext: { event in
+                let id = self.viewModel?.comments.value.first(where: { comment in
+                    comment.id == self.viewModel?.comments.value[event.row].id
+                })?.id
+                if let id {
+                    self.deleteComment(id: id)
+                }
+            })
+            .disposed(by: disposeBag)
         
         commentsTableView.snp.makeConstraints { make in
             make.width.equalToSuperview()
@@ -277,22 +286,6 @@ extension TaskDetailsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         nil
-    }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
-    {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { (action, view, handler) in
-            let id = self.viewModel?.comments.value.first(where: { comment in
-                comment.id == self.viewModel?.comments.value[indexPath.row].id
-            })?.id
-            if let id {
-                self.deleteComment(id: id)
-            }
-        }
-        deleteAction.backgroundColor = .red
-        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
-        configuration.performsFirstActionWithFullSwipe = false
-        return configuration
     }
 }
 

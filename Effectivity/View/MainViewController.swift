@@ -23,10 +23,13 @@ class MainViewController: UIViewController {
     var menuItems: [UIAction] {
         return [
             UIAction(title: "Сначала новые", handler: { (_) in
+                self.viewModel.changeSortMethod(.newDesc)
             }),
             UIAction(title: "Сначала старые", handler: { (_) in
+                self.viewModel.changeSortMethod(.newAsc)
             }),
             UIAction(title: "Сначала срочные", handler: { (_) in
+                self.viewModel.changeSortMethod(.urgentlyDesc)
             }),
         ]
     }
